@@ -3,7 +3,7 @@ FROM seapy/rails-nginx-unicorn-pro:v1.0-ruby2.2.0-nginx1.6.0
 MAINTAINER seapy(iamseapy@gmail.com)
 
 # Add here your preinstall lib(e.g. imagemagick, mysql lib, pg lib, ssh config)
-RUN apt-get install -qq -y libpq-dev
+RUN apt-get install -y libpq-dev
 
 #(required) Install Rails App
 ADD Gemfile /app/Gemfile
