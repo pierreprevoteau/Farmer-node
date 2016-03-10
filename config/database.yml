@@ -1,10 +1,7 @@
-default: &default
+development:
   adapter: postgresql
   encoding: unicode
   pool: 5
-
-development:
-  <<: *default
   database: farmer_development
   host: 192.168.99.100
   port: 32769
@@ -12,7 +9,9 @@ development:
   password: postgres
 
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: farmer_production
   host: <%= ENV["SQL_HOST"] %>
   port: <%= ENV["SQL_PORT"] %>
