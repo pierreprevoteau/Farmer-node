@@ -1,11 +1,5 @@
 development:
   192.168.99.100:32768
 
-test:
-  localhost:6379
-
-staging:
-  192.168.99.100:32768
-
 production:
-  192.168.99.100:32768
+  <%= ENV["REDIS_HOST"] %>:<%= ENV["REDIS_PORT"] %>
