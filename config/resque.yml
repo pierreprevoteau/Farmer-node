@@ -1,5 +1,9 @@
 development:
-  192.168.99.100:32768
+  host: 192.168.99.100
+  port: 32768
+  password:
 
 production:
-  <%= ENV["REDIS_HOST"] %>:<%= ENV["REDIS_PORT"] %>
+  host: <%= ENV["REDIS_HOST"] %>
+  port: <%= ENV["REDIS_PORT"] %>
+  password: <%= ENV["REDIS_PASSWORD"] %>
