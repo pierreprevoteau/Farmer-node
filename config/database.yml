@@ -11,18 +11,10 @@ development:
   username: postgres
   password: postgres
 
-test:
-  <<: *default
-  database: farmer_test
-  host: 192.168.99.100
-  port: 32769
-  username: postgres
-  password: postgres
-
 production:
   <<: *default
   database: farmer_production
-  host: 192.168.99.100
-  port: 32769
-  username: postgres
-  password: postgres
+  host: <%= ENV["SQL_HOST"] %>
+  port: <%= ENV["SQL_PORT"] %>
+  username: <%= ENV["SQL_USERNAME"] %>
+  password: <%= ENV["SQL_PASSWORD"] %>
