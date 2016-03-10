@@ -1,31 +1,44 @@
-FROM ruby:2.2.3
+FROM seapy/ruby:2.2.0
+MAINTAINER ChangHoon Jeong <iamseapy@gmail.com>
 
-RUN apt-get update && apt-get install -y wget apt-transport-https 
-RUN wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo 'deb https://deb.nodesource.com/node_0.12 jessie main' > /etc/apt/sources.list.d/nodesource.list
-RUN apt-get update && apt-get install -y nodejs supervisor
-RUN mkdir -p /var/log/supervisor
+RUN apt-get update
 
+# Install nodejs
+RUN apt-get install -qq -y nodejs
+
+# Intall software-properties-common for add-apt-repository
+RUN apt-get install -qq -y software-properties-common
+
+# Install Nginx.
+RUN add-apt-repository -y ppa:nginx/stable
+RUN apt-get update
+RUN apt-get install -qq -y nginx=1.8.0-1+trusty1
+RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+RUN chown -R www-data:www-data /var/lib/nginx
+# Add default nginx config
+ADD nginx-sites.conf /etc/nginx/sites-enabled/default
+
+# Install foreman
+RUN gem install foreman
+
+# Rails App directory
 WORKDIR /app
 
-# Mostly static
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ADD config.ru /app/
-ADD Rakefile /app/
-ADD bin /app/bin
-ADD public /app/public
-ADD db /app/db
+# Add default unicorn config
+ADD unicorn.rb /app/config/unicorn.rb
 
-# Gems
-ADD Gemfile /app/
-ADD Gemfile.lock /app/
-RUN bundle install
+# Add default foreman config
+ADD Procfile /app/Procfile
 
-# Code
-ADD config /app/config
-ADD app /app/app
-ADD lib /app/lib
+ENV RAILS_ENV production
 
-EXPOSE 9080
+#(required) Install Rails App
+ADD Gemfile /app/Gemfile
+ADD Gemfile.lock /app/Gemfile.lock
+RUN bundle install --without development test
+ADD . /app
 
-CMD ["/usr/bin/supervisord"]
+#(required) nginx port number
+EXPOSE 80
+
+CMD bundle exec rake assets:precompile && foreman start -f Procfile
