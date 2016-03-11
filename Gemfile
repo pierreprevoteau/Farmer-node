@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-
 gem 'bundler', '>= 1.8.4'
 gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15'
