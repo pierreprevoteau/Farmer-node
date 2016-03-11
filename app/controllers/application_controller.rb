@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-
-
   def self.find_media_working_directory(medium_id)
     media_working_directory = "public/working_directory/" + medium_id.to_s + "/"
     return media_working_directory

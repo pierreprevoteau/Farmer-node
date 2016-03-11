@@ -7,7 +7,6 @@ development:
   port: 32769
   username: postgres
   password: postgres
-
 production:
   adapter: postgresql
   encoding: unicode
