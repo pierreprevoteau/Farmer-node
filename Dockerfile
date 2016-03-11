@@ -11,6 +11,7 @@ ENV SQL_PASSWORD postgres
 ENV SECRET_KEY_BASE mysecret
 ENV REDIS_HOST 192.168.99.100
 ENV REDIS_PORT 32768
+ENV REDIS_HOST_PORT 192.168.99.100:32768
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install --without development test
