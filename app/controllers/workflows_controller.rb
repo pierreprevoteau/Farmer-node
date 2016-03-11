@@ -1,14 +1,10 @@
 class WorkflowsController < ApplicationController
   before_action :set_workflow, only: [:show, :edit, :update, :destroy]
 
-  # GET /workflows
-  # GET /workflows.json
   def index
     @workflows = Workflow.all
   end
 
-  # GET /workflows/1
-  # GET /workflows/1.json
   def show
   end
 
