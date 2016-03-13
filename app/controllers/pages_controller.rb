@@ -1,9 +1,6 @@
 class PagesController < ApplicationController
   require 'resque'
 
-  def dev
-  end
-
   def overview
     @manager = Resque.info[:servers]
     @manager = @manager.to_s[10...-10]
