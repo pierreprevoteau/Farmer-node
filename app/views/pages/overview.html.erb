@@ -8,12 +8,17 @@
 				</div>
 			</div>
 			<div class="inner cover">
-				<h1 class="cover-heading">Node is running XX workers</h1>
-				<p class="lead"><%= request.host %></p>
+				<h1 class="cover-heading">Node</h1>
+				<h3 class="cover-heading"><%= Socket.gethostname %></h3>
+				<hr>
+				<h1 class="cover-heading">Manager</h1>
+				<h3 class="cover-heading"><%= @manager %></h3>
+				<hr>
+				<p class="lead"><%= @nodes_count %> running workers</p>
 			</div>
 			<div class="mastfoot">
 				<div class="inner">
-					<p>Loaded at <%= Time.now %></p>
+					<p>Updated at <%= Time.now %></p>
 				</div>
 			</div>
 		</div>

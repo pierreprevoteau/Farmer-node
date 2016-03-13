@@ -1,13 +1,19 @@
 class PagesController < ApplicationController
+  require 'resque'
+
   def dev
   end
 
   def overview
-    @workflows = Workflow.where(active: true).order(title: :asc)
-    @media = Medium.all.order(id: :desc)
+    @manager = Resque.info[:servers]
+    @manager = @manager.to_s[10...-10]
 
-    @workflows.each do |workflow|
-      instance_variable_set("@workflows_count_#{workflow.id}", Medium.where(workflow_id: workflow.id).where.not(state: "copied_to_out_directory").where.not(state: "ready_for_purge").count)
+    @nodes ||= Array.new
+    @workers = Resque.workers
+    @workers.each do |worker|
+        tokens = worker.to_s.split(":")
+        @nodes.push(tokens[0])
     end
+    @nodes_count = @nodes.count(Socket.gethostname)
   end
 end
