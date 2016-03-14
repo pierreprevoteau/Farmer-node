@@ -3,7 +3,7 @@ MAINTAINER seapy(iamseapy@gmail.com)
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y --force-yes libpq-dev nfs-utils
+    apt-get install -y --force-yes libpq-dev
 ENV SQL_HOST 192.168.99.100
 ENV SQL_PORT 32778
 ENV SQL_USERNAME postgres
